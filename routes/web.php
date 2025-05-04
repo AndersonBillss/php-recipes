@@ -6,6 +6,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Entry');
 })->name('home');
-
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+    
+Route::prefix('api')->group(function () {
+    require __DIR__.'/api.php';
+});
