@@ -24,8 +24,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Recipes';
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        console.log(name)
-        return resolvePageComponent(`./pages/${name}.vue`, import.meta.glob<DefineComponent>('./pages/**/*.vue'))
+        return resolvePageComponent(`./${name}.vue`, import.meta.glob<DefineComponent>('./**/*.vue'))
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
