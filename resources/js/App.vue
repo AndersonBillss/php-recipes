@@ -1,16 +1,18 @@
 <script>
-import Home from './pages/Home.vue';
+import Login from './pages/Login.vue';
 export default {
   components: {
-    Home
+    Login
   }
 }
 
 </script>
 
 <template>
-    <h1>
-        THIS IS A VUE APP
-        <Home />
-    </h1>
+  <div>
+      <h1>
+          THIS IS A VUE APP
+          <Login />
+      </h1>
+  </div>
 </template>

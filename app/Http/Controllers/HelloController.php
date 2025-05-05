@@ -12,9 +12,6 @@ class HelloController extends Controller
     public function create(Request $request): HTTPResponse
     {
         return response("HELLO?", 200);
-        // return Inertia::render('hello', [
-        //     'msg' => "GET - This is a response from a Rest API made with Laravel",
-        // ]);
     }
 
     public function store(Request $request): Response
