@@ -7,17 +7,16 @@ export default {
         return {
             username: 'Anderson',
             password: '11111111',
+            email: 'abc@abc.abc'
         }
     },
     methods: {
         onSubmit(){
             console.log("Username:",this.username)
+            console.log("Email:",this.email)
             console.log("Password:",this.password)
 
-            axios.post(`${apiURL}/login`, {name: this.username, password: this.password})
-            .then(res => {
-                localStorage.setItem("token", res.data.token)
-            })
+            axios.post(`${apiURL}/register`, {name: this.username, password: this.password, email: this.email})
         }
     }
 }
@@ -28,7 +27,8 @@ export default {
     <div>
         Log into recipes app
         <input type="text" placeholder="username" v-model="username">
+        <input type="text" placeholder="email" v-model="email">
         <input type="text" placeholder="password" v-model="password">
-        <button @click="onSubmit">Login</button>
+        <button @click="onSubmit">register</button>
     </div>
 </template>

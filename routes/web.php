@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 
 Route::get('/', function () {
@@ -10,5 +10,8 @@ Route::get('/', function () {
 })->name('home');
     
 Route::prefix('api')->group(function () {
-    require __DIR__.'/api.php';
+    require __DIR__.'/auth.php';
+    Route::middleware(['auth:sanctum'])->group(function () {
+        require __DIR__.'/user.php';
+    });
 });

@@ -8,7 +8,9 @@ const error: Ref<Error | null> = ref(null)
 
 onMounted(async () => {
     try {
-        const res = await axios.get<string>(`${apiURL}/hello`);
+        const res = await axios.get<string>(`${apiURL}/hello`, {
+
+        });
         data.value = res.data
     } catch (err) {
         error.value = err as Error;
