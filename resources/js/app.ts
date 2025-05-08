@@ -6,6 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import type { DefineComponent } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
 import axios from 'axios';
+import AppLayout from './layouts/AppLayout.vue';
 
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
@@ -27,9 +28,14 @@ createInertiaApp({
         return resolvePageComponent(`./pages/${name}.vue`, import.meta.glob<DefineComponent>('./pages/**/*.vue'))
     },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .use(ZiggyVue)
-            .mount(el);
+        const app = createApp({
+            render: () => h(AppLayout, {}, {
+                default: () => h(App, props)
+            })
+        });
+        
+        app.use(plugin)
+           .use(ZiggyVue)
+           .mount(el);
     },
 });
