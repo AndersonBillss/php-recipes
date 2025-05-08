@@ -14,8 +14,16 @@ Route::prefix('api')->group(function () {
 });
 
 Route::get('/', function () {
+    return Inertia::render('Home');
+})->name('home');
+
+Route::get('/login', function () {
     return Inertia::render('Login');
 })->name('login');
+
+Route::get('/register', function () {
+    return Inertia::render('Register');
+})->name('register');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', function (Request $request) {        
