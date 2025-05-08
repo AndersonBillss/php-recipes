@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -23,10 +24,10 @@ class AuthController extends Controller
             'email'    => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
-        $token = $user->createToken('auth_token')->plainTextToken;
+        Auth::login($user);
 
-        return response()->json(['token' => $token], 201);
-    }
+        return response("Succesfully logged in", 201);
+    } 
 
 
     public function login(Request $request){
@@ -42,9 +43,10 @@ class AuthController extends Controller
                 "Invalid Username or Password"
             ]);
         }
-        $token = $user->createToken('auth_token')->plainTextToken;
+        Auth::login($user);
+        $request->session()->regenerate();
 
-        return response()->json(['token' => $token], 200);
+        return response()->json(['token'], 200);
     }
 
     public function logout(){

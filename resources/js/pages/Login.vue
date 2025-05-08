@@ -1,8 +1,10 @@
 <script lang="ts">
 import axios from 'axios'
 import { apiURL } from '@/env.dev'
+import { router } from '@inertiajs/vue3'
 
 export default {
+    
     data() {
         return {
             username: 'Anderson',
@@ -13,11 +15,8 @@ export default {
         onSubmit(){
             console.log("Username:",this.username)
             console.log("Password:",this.password)
-
             axios.post(`${apiURL}/login`, {name: this.username, password: this.password})
-            .then(res => {
-                localStorage.setItem("token", res.data.token)
-            })
+            .then(() => {router.visit('/dashboard')})
         }
     }
 }
