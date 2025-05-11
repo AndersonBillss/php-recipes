@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create("recipes", function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->nullable()->constrained()->onDelete("set null");
-            $table->date("creation_date");
             $table->string("title");
             $table->string("description");
             $table->json("steps");
