@@ -7,6 +7,7 @@ import type { DefineComponent } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
 import axios from 'axios';
 import AppLayout from './layouts/AppLayout.vue';
+import { createPinia } from 'pinia';
 
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
@@ -33,9 +34,11 @@ createInertiaApp({
                 default: () => h(App, props)
             })
         });
-        
+        const pinia = createPinia()
+
         app.use(plugin)
            .use(ZiggyVue)
+           .use(pinia)
            .mount(el);
     },
 });

@@ -3,7 +3,6 @@ import "tailwindcss"
 import axios from 'axios'
 import { apiURL } from '@/env.dev'
 import { router } from '@inertiajs/vue3'
-import Navbar from '@/components/Navbar.vue';
 
 export default {
     
@@ -21,15 +20,11 @@ export default {
             .then(() => {router.visit('/dashboard')})
         }
     },
-    components: {
-        Navbar,
-    }
 }
 
 </script>
 
 <template>
-    <Navbar />
     Log into recipes app
     <input type="text" placeholder="username" v-model="username">
     <input type="text" placeholder="password" v-model="password">
