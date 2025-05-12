@@ -27,14 +27,15 @@ Route::get('/register', function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', function (Request $request) {        
-        return Inertia::render('Dashboard', [
-            'data' => $request->user()
-        ]);
+        return Inertia::render('Dashboard', ['data' => $request->user()]);
     });
     Route::get('/profile', function (Request $request) {        
-        return Inertia::render('Profile', [
-            'data' => $request->user()
-        ]);
+        return Inertia::render('Profile', ['data' => $request->user()]);
+    });
+});
+Route::middleware('auth:sanctum', 'admin')->group(function () {
+    Route::get('/admin', function (Request $request) {        
+        return Inertia::render('Admin', ['data' => $request->user()]);
     });
 });
     
