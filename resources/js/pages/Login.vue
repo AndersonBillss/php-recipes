@@ -8,15 +8,15 @@ export default {
     
     data() {
         return {
-            username: 'Anderson',
+            email: 'abc@abc.abc',
             password: '11111111',
         }
     },
     methods: {
         onSubmit(){
-            console.log("Username:",this.username)
+            console.log("Email:",this.email)
             console.log("Password:",this.password)
-            axios.post(`${apiURL}/login`, {name: this.username, password: this.password})
+            axios.post(`${apiURL}/login`, {email: this.email, password: this.password})
             .then(() => {router.visit('/dashboard')})
         }
     },
@@ -26,7 +26,7 @@ export default {
 
 <template>
     Log into recipes app
-    <input type="text" placeholder="username" v-model="username">
+    <input type="text" placeholder="email" v-model="email">
     <input type="text" placeholder="password" v-model="password">
     <button @click="onSubmit">Login</button>
 </template>
