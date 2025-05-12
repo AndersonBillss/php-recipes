@@ -1,34 +1,26 @@
-<script lang="ts">
+<script setup lang="ts">
 import axios from 'axios'
 import { apiURL } from '@/env.dev'
+import { ref } from 'vue'
+import Card from '@/components/Card.vue'
+import Button from '@/components/Button.vue';
+import TextInput from '@/components/TextInput.vue';
 
-export default {
-    data() {
-        return {
-            username: 'Anderson',
-            password: '11111111',
-            email: 'abc@abc.abc'
-        }
-    },
-    methods: {
-        onSubmit(){
-            console.log("Username:",this.username)
-            console.log("Email:",this.email)
-            console.log("Password:",this.password)
+let username = 'Anderson'
+let password = '11111111'
+let email = 'abc@abc.abc'
 
-            axios.post(`${apiURL}/register`, {name: this.username, password: this.password, email: this.email})
-        }
-    }
+function onSubmit(){
+    axios.post(`${apiURL}/register`, {name: username, password, email})
 }
-
 </script>
 
 <template>
-    <div>
-        Log into recipes app
-        <input type="text" placeholder="username" v-model="username">
-        <input type="text" placeholder="email" v-model="email">
-        <input type="text" placeholder="password" v-model="password">
-        <button @click="onSubmit">register</button>
-    </div>
+    <Card class="p-4">
+        <h2>Register an account</h2>
+        <TextInput class="w-xs m-2" placeholder="username" label="Username" v-model="username" />
+        <TextInput class="w-xs m-2" placeholder="email" label="Email" v-model="email" />
+        <TextInput class="w-xs m-2" placeholder="password" label="Password" v-model="password" />
+        <Button class="m-2 w-fit text-white" @click="onSubmit">Register</Button>
+    </Card>
 </template>
