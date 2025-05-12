@@ -1,26 +1,21 @@
-<script lang="ts">
+<script lang="ts" setup>
 import "tailwindcss"
 import axios from 'axios'
 import { apiURL } from '@/env.dev'
 import { router } from '@inertiajs/vue3'
+import { useUserStore } from '@/stores/user';
 
-export default {
-    
-    data() {
-        return {
-            email: 'abc@abc.abc',
-            password: '11111111',
-        }
-    },
-    methods: {
-        onSubmit(){
-            console.log("Email:",this.email)
-            console.log("Password:",this.password)
-            axios.post(`${apiURL}/login`, {email: this.email, password: this.password})
-            .then(() => {router.visit('/dashboard')})
-        }
-    },
+function onSubmit(){
+    axios.post(`${apiURL}/login`, {email, password})
+    .then(() => {router.visit('/dashboard')})
 }
+
+let email = 'abc@abc.abc'
+let password = '11111111'
+
+const userStore = useUserStore()
+userStore.isLoggedIn = false
+userStore.isAdmin = false
 
 </script>
 

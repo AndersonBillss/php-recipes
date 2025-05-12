@@ -11,7 +11,7 @@
                     Dashboard
                 </Button>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/admin">
                 <Button class="mx-2">
                     Admin
                 </Button>

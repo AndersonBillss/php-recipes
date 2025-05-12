@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
         Auth::login($user);
 
-        return response("Succesfully logged in", 201);
+        return response("Succesfully Created Account", 201);
     } 
 
 
@@ -34,7 +34,7 @@ class AuthController extends Controller
         $validated = $request->validate([
             'email'     => 'required|string',
             'password' => 'required|string'
-        ]);    
+        ]);
         
         $user = User::where('email', $validated['email'])->first();
         
@@ -46,10 +46,16 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return response()->json(['token'], 200);
+        return response("Succesfully logged in", 200);
     }
 
-    public function logout(){
-
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();        
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return response("Succesfully logged out", 200);
     }
 }

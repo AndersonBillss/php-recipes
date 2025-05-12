@@ -31,6 +31,11 @@ Route::middleware('auth:sanctum')->group(function () {
             'data' => $request->user()
         ]);
     });
+    Route::get('/profile', function (Request $request) {        
+        return Inertia::render('Profile', [
+            'data' => $request->user()
+        ]);
+    });
 });
     
 Route::get('/{any}', function () {
