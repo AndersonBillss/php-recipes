@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Ingredient;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
@@ -37,6 +39,18 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum', 'admin')->group(function () {
     Route::get('/admin', function (Request $request) {        
         return Inertia::render('Admin', ['data' => $request->user()]);
+    });
+    Route::get('/createIngredient', function (Request $request) {        
+        return Inertia::render('CreateIngredient', [
+            'user' => $request->user(),
+            'ingredients' => Ingredient::all()
+        ]);
+    });
+    Route::get('/createUnit', function (Request $request) {        
+        return Inertia::render('CreateUnit', [
+            'user' => $request->user(),
+            'units' => Unit::all()
+        ]);
     });
 });
     

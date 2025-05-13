@@ -3,54 +3,39 @@
         Admin Control Panel
     </h1>
     <div class="flex flex-wrap">
-        <Card class="m-4 p-4">
-            <h2>
-                Add an Ingredient
+        <Card class="m-4 mb-8 p-4">
+            <h2 class="mb-4">
+                Ingredient Tool
             </h2>
-            <TextInput class="my-4" v-model="ingredientName" placeholder="Ingredient title" label="Ingredient Name" />
-            <Button class="w-fit text-white" @click="submitIngredient">Create</Button>
+            <Link href="/createIngredient">
+                <Button class="w-fit text-white">GO</Button>
+            </Link>
         </Card>
-        <Card class="m-4 p-4">
-            <h2>
-                Add Units
+        <Card class="m-4 mb-8 p-4">
+            <h2 class="mb-4">
+                Unit Tool
             </h2>
-            <TextInput class="my-4" v-model="unitName" placeholder="Unit Name" label="Unit Name" />
-            <TextInput class="my-4" v-model="unitAbbreviation" placeholder="Unit Abbreviation" label="Unit Abbreviation" />
-            <Button class="w-fit text-white" @click="submitUnit">Create</Button>
+            <Link href="/createUnit">
+                <Button class="w-fit text-white">GO</Button>
+            </Link>
         </Card>
     </div>
 
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { userData } from '@/types/user';
+import { userData } from '@/types/api';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
-import TextInput from '@/components/TextInput.vue';
-import axios from 'axios';
-import { apiURL } from '@/env.dev';
+import { Link } from '@inertiajs/vue3'
 
 const props = defineProps<{data: userData}>()
-const data: userData = props.data
+const user: userData = props.data
 
 const userStore = useUserStore();
 userStore.isLoggedIn = true
-userStore.isAdmin = props.data.is_admin
+userStore.isAdmin = user.is_admin
 
-let ingredientName = "";
-let unitName = "";
-let unitAbbreviation = "";
-
-function submitIngredient(){
-    axios.post(`${apiURL}/ingredient`, {name: ingredientName})
-}
-function submitUnit(){
-    axios.post(`${apiURL}/unit`, {
-        name: unitName,
-        abbreviation: unitAbbreviation
-    })
-    
-}
 
 </script>
 <style lang="">

@@ -11,7 +11,7 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { userData } from '@/types/user';
+import { userData } from '@/types/api';
 import { apiURL } from '@/env.dev'
 import { router } from '@inertiajs/vue3'
 import axios from 'axios'

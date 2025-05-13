@@ -13,7 +13,9 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'units' => Ingredient::all()
+        ], 200); 
     }
 
     /**
@@ -23,7 +25,7 @@ class IngredientController extends Controller
     {
         //
         $request->merge([
-            'name' => strtolower($request->input('name'))
+            'name' => trim(strtolower($request->input('name')))
         ]);
         $validated = $request->validate([
             "name" => "required|string|max:255|unique:ingredients"
@@ -33,9 +35,12 @@ class IngredientController extends Controller
             'user_id' => $request->user()->id
         ]);
 
+        $ingredients = Ingredient::all();
+
         return response()->json([
-            'message' => 'Successfully added ingredient'
-        ], 201);    
+            'message' => 'Successfully added ingredient',
+            'ingredients' => $ingredients
+        ], 201);
     }
 
     /**

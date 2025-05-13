@@ -11,6 +11,8 @@ class Ingredient extends Model
 
     protected $fillable = ['user_id', 'creation_time', 'name'];
 
+    protected $hidden = ['user_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

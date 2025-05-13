@@ -13,7 +13,9 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'units' => Unit::all()
+        ], 200);    
     }
 
     /**
@@ -23,7 +25,7 @@ class UnitController extends Controller
     {
         //
         $request->merge([
-            'name' => strtolower($request->input('name'))
+            'name' => trim(strtolower($request->input('name')))
         ]);
         
         $validated = $request->validate([
@@ -36,11 +38,12 @@ class UnitController extends Controller
             'abbreviation' => $validated['abbreviation'],
             'user_id' => $request->user()->id
         ]);
-        log::debug($validated["name"]);
-        log::debug($validated["abbreviation"]);
+  
+        $units = Unit::all();
 
         return response()->json([
-            'message' => 'Succesfully created unit'
+            'message' => 'Succesfully created unit',
+            'units' => $units
         ], 201);
     }
 
