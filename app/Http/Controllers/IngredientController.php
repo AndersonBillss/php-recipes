@@ -22,15 +22,20 @@ class IngredientController extends Controller
     public function store(Request $request)
     {
         //
+        $request->merge([
+            'name' => strtolower($request->input('name'))
+        ]);
         $validated = $request->validate([
-            "name" => "required|string|max:255"
+            "name" => "required|string|max:255|unique:ingredients"
         ]);
         Ingredient::create([
-            'name' => strtolower($validated['name']),
+            'name' => $validated['name'],
             'user_id' => $request->user()->id
         ]);
 
-        return response("Succesfully added ingredient", 201);
+        return response()->json([
+            'message' => 'Successfully added ingredient'
+        ], 201);    
     }
 
     /**

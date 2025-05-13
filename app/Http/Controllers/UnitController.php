@@ -22,20 +22,26 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         //
+        $request->merge([
+            'name' => strtolower($request->input('name'))
+        ]);
+        
         $validated = $request->validate([
-            "name" => "required|string|max:255",
-            "abbreviation" => "required|string|max:255"
+            "name" => "required|string|max:255|unique:units",
+            "abbreviation" => "required|string|max:255|unique:units"
         ]);
 
         Unit::create([
-            'name' => strtolower($validated['name']),
+            'name' => $validated['name'],
             'abbreviation' => $validated['abbreviation'],
             'user_id' => $request->user()->id
         ]);
         log::debug($validated["name"]);
         log::debug($validated["abbreviation"]);
 
-        return response("Succesfully created unit", 201);
+        return response()->json([
+            'message' => 'Succesfully created unit'
+        ], 201);
     }
 
     /**

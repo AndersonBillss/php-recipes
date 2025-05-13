@@ -26,7 +26,10 @@ class AuthController extends Controller
         ]);
         Auth::login($user);
 
-        return response("Succesfully Created Account", 201);
+        return response()->json([
+            'message' => "Succesfully Created Account"
+        ], 201);
+
     } 
 
 
@@ -46,7 +49,9 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return response("Succesfully logged in", 200);
+        return response()->json([
+            'message' => 'Succesfully logged in'
+        ], 200);    
     }
 
     public function logout(Request $request)
@@ -56,6 +61,8 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return response("Succesfully logged out", 200);
+        return response()->json([
+            'message' => 'Succesfully logged out'
+        ], 200);
     }
 }
