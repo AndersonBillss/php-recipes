@@ -8,7 +8,7 @@
                 Add an Ingredient
             </h2>
             <TextInput class="my-4" v-model="ingredientName" placeholder="Ingredient title" label="Ingredient Name" />
-            <Button class="w-fit text-white">Create</Button>
+            <Button class="w-fit text-white" @click="submitIngredient">Create</Button>
         </Card>
         <Card class="m-4 p-4">
             <h2>
@@ -16,7 +16,7 @@
             </h2>
             <TextInput class="my-4" v-model="unitName" placeholder="Unit Name" label="Unit Name" />
             <TextInput class="my-4" v-model="unitAbbreviation" placeholder="Unit Abbreviation" label="Unit Abbreviation" />
-            <Button class="w-fit text-white">Create</Button>
+            <Button class="w-fit text-white" @click="submitUnit">Create</Button>
         </Card>
     </div>
 
@@ -27,7 +27,8 @@ import { userData } from '@/types/user';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 import TextInput from '@/components/TextInput.vue';
-import { ref } from 'vue';
+import axios from 'axios';
+import { apiURL } from '@/env.dev';
 
 const props = defineProps<{data: userData}>()
 const data: userData = props.data
@@ -36,9 +37,18 @@ const userStore = useUserStore();
 userStore.isLoggedIn = true
 userStore.isAdmin = props.data.is_admin
 
-const ingredientName = ref("");
-const unitName = ref("");
-const unitAbbreviation = ref("");
+let ingredientName = "";
+let unitName = "";
+let unitAbbreviation = "";
+
+function submitIngredient(){
+    console.log("INGREDIENT NAME:", ingredientName)
+    axios.post(`${apiURL}/ingredient`, {name: ingredientName})
+}
+function submitUnit(){
+    console.log("UNIT NAME:", unitName)
+    console.log("UNIT ABBREVIATION:", unitAbbreviation)
+}
 
 </script>
 <style lang="">

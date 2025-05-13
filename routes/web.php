@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 Route::prefix('api')->group(function () {
     require __DIR__.'/auth.php';
+    require __DIR__.'/api.php';
     Route::middleware('auth:sanctum')->group(function () {
         require __DIR__.'/user.php';
     });

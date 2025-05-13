@@ -9,12 +9,7 @@ class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'creation_time', 'title', 'description', 'steps'];
-
-    protected $casts = [
-        'creation_time' => 'date',
-        'steps' => 'array',
-    ];
+    protected $fillable = ['user_id', 'creation_time', 'name'];
 
     public function user()
     {
