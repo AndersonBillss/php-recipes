@@ -42,12 +42,14 @@ let unitName = "";
 let unitAbbreviation = "";
 
 function submitIngredient(){
-    console.log("INGREDIENT NAME:", ingredientName)
     axios.post(`${apiURL}/ingredient`, {name: ingredientName})
 }
 function submitUnit(){
-    console.log("UNIT NAME:", unitName)
-    console.log("UNIT ABBREVIATION:", unitAbbreviation)
+    axios.post(`${apiURL}/unit`, {
+        name: unitName,
+        abbreviation: unitAbbreviation
+    })
+    
 }
 
 </script>

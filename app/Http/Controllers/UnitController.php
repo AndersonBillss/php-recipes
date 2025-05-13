@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ingredient;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class IngredientController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,14 +23,19 @@ class IngredientController extends Controller
     {
         //
         $validated = $request->validate([
-            "name" => "required|string|max:255"
-        ]);
-        Ingredient::create([
-            'name' => strtolower($validated['name']),
-            'user_id' => $request->user()->id
+            "name" => "required|string|max:255",
+            "abbreviation" => "required|string|max:255"
         ]);
 
-        return response("Succesfully added ingredient", 201);
+        Unit::create([
+            'name' => strtolower($validated['name']),
+            'abbreviation' => $validated['abbreviation'],
+            'user_id' => $request->user()->id
+        ]);
+        log::debug($validated["name"]);
+        log::debug($validated["abbreviation"]);
+
+        return response("Succesfully created unit", 201);
     }
 
     /**

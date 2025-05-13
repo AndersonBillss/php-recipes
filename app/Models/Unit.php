@@ -9,5 +9,5 @@ class Unit extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'abbreviation'];
+    protected $fillable = ['name', 'abbreviation', 'user_id'];
 }
