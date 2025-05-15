@@ -35,6 +35,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', function (Request $request) {        
         return Inertia::render('Profile', ['data' => $request->user()]);
     });
+    Route::get('/createRecipe', function (Request $request) {        
+        return Inertia::render('CreateRecipe', [
+            'ingredients' => Ingredient::all(),
+            'units' => Unit::all(),
+            'user' => $request->user()
+        ]);
+    });
 });
 Route::middleware('auth:sanctum', 'admin')->group(function () {
     Route::get('/admin', function (Request $request) {        

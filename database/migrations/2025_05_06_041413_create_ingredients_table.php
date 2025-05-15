@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('ingredient_id')->constrained()->onDelete('restrict');
             $table->foreignId('unit_id')->constrained('units')->onDelete('restrict');
             $table->integer('quantity')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

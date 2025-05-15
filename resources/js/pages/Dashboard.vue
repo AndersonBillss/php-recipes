@@ -21,9 +21,11 @@
             <p class="mb-4">
                 Create a new recipe for other users to see and use.
             </p>
-            <Button class="w-fit text-white">
-                GO
-            </Button>
+            <Link href="/createRecipe">
+                <Button class="w-fit text-white">
+                    GO
+                </Button>
+            </Link>
         </Card>
     </div>
 
@@ -33,6 +35,7 @@ import { useUserStore } from '@/stores/user';
 import { userData } from '@/types/api';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
+import { Link } from '@inertiajs/vue3'
 
 const props = defineProps<{data: userData}>()
 const data: userData = props.data
