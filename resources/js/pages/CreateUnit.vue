@@ -21,7 +21,7 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { unitData, userData } from '@/types/api';
+import { UnitData, UserData } from '@/types/api';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 import TextInput from '@/components/TextInput.vue';
@@ -30,8 +30,8 @@ import { apiURL } from '@/env.dev';
 import { ref } from 'vue';
 import BackButton from '@/components/BackButton.vue';
 
-const props = defineProps<{user: userData, units: unitData[]}>()
-const user: userData = props.user
+const props = defineProps<{user: UserData, units: UnitData[]}>()
+const user: UserData = props.user
 
 const userStore = useUserStore();
 userStore.isLoggedIn = true
@@ -39,7 +39,7 @@ userStore.isAdmin = user.is_admin
 
 let unitName = ref("");
 let unitAbbreviation = ref("");
-const units = ref<unitData[]>([...props.units])
+const units = ref<UnitData[]>([...props.units])
 
 function submitUnit(){
     axios.post(`${apiURL}/unit`, {

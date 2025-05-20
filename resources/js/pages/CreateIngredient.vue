@@ -21,7 +21,7 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { userData, ingredientData } from '@/types/api';
+import { UserData, IngredientItem } from '@/types/api';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 import TextInput from '@/components/TextInput.vue';
@@ -30,14 +30,14 @@ import { apiURL } from '@/env.dev';
 import { ref } from 'vue';
 import BackButton from '@/components/BackButton.vue';
 
-const props = defineProps<{user: userData, ingredients: ingredientData[]}>()
-const user: userData = props.user
+const props = defineProps<{user: UserData, ingredients: IngredientItem[]}>()
+const user: UserData = props.user
 
 const userStore = useUserStore();
 userStore.isLoggedIn = true
 userStore.isAdmin = user.is_admin
 
-const ingredients = ref<ingredientData[]>([...props.ingredients])
+const ingredients = ref<IngredientItem[]>([...props.ingredients])
 const ingredientName = ref("");
 
 function submitIngredient(){

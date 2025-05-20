@@ -6,15 +6,17 @@
         <ComboboxInput
         class="w-full rounded-md border-gray-300 border-3 px-3 py-2 text-sm focus:border-amber-500 outline-none transition-colors duration-200"
         :placeholder="placeholder"
-        @change="query = $event.target.value" />
+        @change="query = $event.target.value" 
+        />
+        
         <ComboboxOptions class="absolute w-full h-25 overflow-y-scroll bg-gray-200 rounded-b-md z-5">
           <ComboboxOption
           class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 cursor-pointer px-2 py-1"
             v-for="item in options"
-            :key="item"
-            :value="item"
+            :key="getOptionLabel(item)"
+            :value="getOptionLabel(item)"
           >
-            {{ item }}
+            {{ getOptionLabel(item) }}
           </ComboboxOption>
         </ComboboxOptions>
       </div>
@@ -29,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import {
   Combobox,
   ComboboxInput,
@@ -38,16 +40,29 @@ import {
 } from '@headlessui/vue'
 
 const props = defineProps<{
-  modelValue?: string
+  modelValue?: any
   placeholder?: string
   label?: string
-  options?: string[]
+  options?: any[]
+  getOptionLabel?: (item: any) => string
 }>()
 
-const query = ref('')
+function getOptionLabel(item: any){
+  return props.getOptionLabel && props.getOptionLabel(item)
+}
+
 const localValue = ref(props.modelValue ?? '')
 
-defineEmits<{
-  (e: 'update:modelValue', value: string): void
+watch(localValue, (newVal) => {
+  if(!props.options) return
+  const val: any = props.options.filter(op => getOptionLabel(op) == newVal)[0]
+  if(!val) return
+  emit('update:modelValue', val)
+})
+
+const query = ref('')
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: any): void
 }>()
 </script>

@@ -11,15 +11,15 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { userData } from '@/types/api';
+import { UserData } from '@/types/api';
 import { apiURL } from '@/env.dev'
 import { router } from '@inertiajs/vue3'
 import axios from 'axios'
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 
-const props = defineProps<{data: userData}>()
-const data: userData = props.data
+const props = defineProps<{data: UserData}>()
+const data: UserData = props.data
 
 const userStore = useUserStore();
 userStore.isLoggedIn = true

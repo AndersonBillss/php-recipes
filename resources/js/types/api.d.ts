@@ -1,4 +1,4 @@
-export interface userData {
+export interface UserData {
     id: number,
     name: string,
     email: string,
@@ -8,14 +8,20 @@ export interface userData {
     updated_at: string
 }
 
-export interface ingredientData {
+export interface IngredientItem {
     id: string,
     name: string,
     created_at: string,
     updated_at: string
 }
+export interface Ingredient {
+    unit?: UnitData,
+    amount?: number,
+    ingredient?: IngredientItem,
+    note: string
+}
 
-export interface unitData {
+export interface UnitData {
     id: string,
     name: string,
     abbreviation: string,
@@ -23,7 +29,13 @@ export interface unitData {
     updated_at: string
 }
 
-export interface step {
+export interface Step {
     title: string,
     text: string
+}
+
+export interface recipeData {
+    title: string,
+    ingredients: Ingredient[],
+    steps: Step[]
 }

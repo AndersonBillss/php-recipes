@@ -8,7 +8,7 @@
             <h2>
                 Create a Recipe
             </h2>
-            <TextInput label="Title" placeholder="Title" v-model="title"></TextInput>
+            <TextInput label="Title" placeholder="Title" v-model="recipe.title"></TextInput>
             <h2 class="flex align-center mt-4 mb-2">
                 Add Ingredient
                 <Button 
@@ -19,12 +19,22 @@
             <ul>
                 <li 
                 class="flex items-center"
-                v-for="(item, index) of ingredients"
+                v-for="(item, index) of recipe.ingredients"
                 >
-                    <NumInput v-model="ingredients[index].amount" class="w-30" type="number" placeholder="Amount"></NumInput>
-                    <TextInput placeholder="Units" :options=unitNames></TextInput>
-                    <TextInput class="w-30" placeholder="Ingredients" :options=ingredientNames></TextInput>
-                    <TextInput v-model="ingredients[index].note" placeholder="notes"></TextInput>
+                    <NumInput class="w-30" placeholder="Amount"
+                    v-model="recipe.ingredients[index].amount"
+                    />
+                    <TextInput placeholder="Units"
+                    :get-option-label="(item) => item.name" :options=allUnits 
+                    v-model="recipe.ingredients[index].unit"
+                    />
+                    <TextInput class="w-30"  placeholder="Ingredients"
+                    :get-option-label="(item) => item.name" :options=allIngredients 
+                    v-model="recipe.ingredients[index].ingredient"
+                    />
+                    <TextInput placeholder="notes"
+                    v-model="recipe.ingredients[index].note" 
+                    />
                     <Button 
                     class="text-white w-8 h-6 flex items-center justify-center text-2xl font-bold ml-2"
                     @click="() => ingredients.splice(index, 1)"
@@ -41,14 +51,14 @@
             <ul>
                 <li 
                 class="flex items-center"
-                v-for="(item, index) of steps"
+                v-for="(item, index) of recipe.steps"
                 >
                     <div class="mr-2">{{ index + 1 }} - </div>
-                    <TextInput placeholder="Title"></TextInput>
-                    <TextInput placeholder="Text"></TextInput>
+                    <TextInput placeholder="Title" v-model="recipe.steps[index].title"></TextInput>
+                    <TextInput placeholder="Text" v-model="recipe.steps[index].text"></TextInput>
                     <Button 
                     class="text-white w-8 h-6 flex items-center justify-center text-2xl font-bold ml-2"
-                    @click="() => steps.splice(index, 1)"
+                    @click="() => recipe.steps.splice(index, 1)"
                     >-</Button>
                 </li>
             </ul>
@@ -59,7 +69,7 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { userData, ingredientData, unitData, step } from '@/types/api';
+import { UserData, IngredientItem, UnitData, recipeData } from '@/types/api';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 import TextInput from '@/components/TextInput.vue';
@@ -69,40 +79,35 @@ import { Ref, ref } from 'vue';
 import BackButton from '@/components/BackButton.vue';
 import NumInput from '@/components/NumInput.vue';
 
-const props = defineProps<{user: userData, units: unitData[], ingredients: ingredientData[]}>()
+const props = defineProps<{user: UserData, units: UnitData[], ingredients: IngredientItem[]}>()
 
 const userStore = useUserStore();
 userStore.isLoggedIn = true
 userStore.isAdmin = props.user.is_admin
-const allIngredients = ref<ingredientData[]>([...props.ingredients])
-const allUnits = ref<unitData[]>([...props.units])
-const unitNames: string[] = allUnits.value.map((item: any) => item.name)
-const ingredientNames: string[] = allIngredients.value.map((item: any) => item.name)
+const allIngredients = ref<IngredientItem[]>([...props.ingredients])
+const allUnits = ref<UnitData[]>([...props.units])
 
-const title: Ref<string> = ref("")
-const ingredients: Ref<{
-    ingredient?: ingredientData,
-    unit?: unitData,
-    amount?: number,
-    note: string
-}[]> = ref([])
-const steps: Ref<step[]> = ref([])
+const recipe: Ref<recipeData> = ref({
+    title: "",
+    ingredients: [],
+    steps: []
+})
 
 function addIngredient(){
-    ingredients.value.push({
+    recipe.value.ingredients.push({
         amount: 0,
         note: ''
     })
 }
 function addStep(){
-    steps.value.push({
+    recipe.value.steps.push({
         title: '',
         text: ''
     })
 }
 
 function submitRecipe(){
-    console.log("submitting recipe")
+    console.log("submitting recipe:", JSON.parse(JSON.stringify(recipe.value)))
 }
 </script>
 <style lang="">

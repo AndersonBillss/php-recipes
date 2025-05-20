@@ -34,7 +34,6 @@ watch(displayValue, (newVal) => {
 function formatNumber(n: number) {
   if(!n) n=0
   const truncated = parseInt(`${n * 100}`.split('.')[0]) / 100;
-  console.log("FORMATTING:", truncated)
   return truncated
 }
 

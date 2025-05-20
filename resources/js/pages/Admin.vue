@@ -24,13 +24,13 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { userData } from '@/types/api';
+import { UserData } from '@/types/api';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 import { Link } from '@inertiajs/vue3'
 
-const props = defineProps<{data: userData}>()
-const user: userData = props.data
+const props = defineProps<{data: UserData}>()
+const user: UserData = props.data
 
 const userStore = useUserStore();
 userStore.isLoggedIn = true
