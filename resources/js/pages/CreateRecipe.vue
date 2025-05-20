@@ -9,6 +9,7 @@
                 Create a Recipe
             </h2>
             <TextInput label="Title" placeholder="Title" v-model="recipe.title"></TextInput>
+            <TextInput label="Description" placeholder="Description" v-model="recipe.description"></TextInput>
             <h2 class="flex align-center mt-4 mb-2">
                 Add Ingredient
                 <Button 
@@ -25,7 +26,7 @@
                     v-model="recipe.ingredients[index].amount"
                     />
                     <TextInput placeholder="Units"
-                    :get-option-label="(item) => item.name" :options=allUnits 
+                    :get-option-label="(item) => item === null ? 'No Units (countable)' : item.name" :options=allUnits 
                     v-model="recipe.ingredients[index].unit"
                     />
                     <TextInput class="w-30"  placeholder="Ingredients"
@@ -69,26 +70,28 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { UserData, IngredientItem, UnitData, recipeData } from '@/types/api';
+import { UserData, IngredientData, UnitData, recipeData } from '@/types/api';
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 import TextInput from '@/components/TextInput.vue';
 import axios from 'axios';
 import { apiURL } from '@/env.dev';
-import { Ref, ref } from 'vue';
+import { Ref, ref, resolveComponent } from 'vue';
 import BackButton from '@/components/BackButton.vue';
 import NumInput from '@/components/NumInput.vue';
 
-const props = defineProps<{user: UserData, units: UnitData[], ingredients: IngredientItem[]}>()
+const props = defineProps<{user: UserData, units: UnitData[], ingredients: IngredientData[]}>()
 
 const userStore = useUserStore();
 userStore.isLoggedIn = true
 userStore.isAdmin = props.user.is_admin
-const allIngredients = ref<IngredientItem[]>([...props.ingredients])
-const allUnits = ref<UnitData[]>([...props.units])
+const allIngredients = ref<IngredientData[]>([...props.ingredients])
+const allUnits = ref<(UnitData | null)[]>([...props.units])
+allUnits.value.unshift(null)
 
 const recipe: Ref<recipeData> = ref({
     title: "",
+    description: "",
     ingredients: [],
     steps: []
 })
@@ -108,6 +111,9 @@ function addStep(){
 
 function submitRecipe(){
     console.log("submitting recipe:", JSON.parse(JSON.stringify(recipe.value)))
+    axios.post(`${apiURL}/recipe`, recipe.value).then(res => {
+        console.log(res)
+    })
 }
 </script>
 <style lang="">

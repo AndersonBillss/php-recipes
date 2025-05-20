@@ -23,7 +23,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
             $table->foreignId('ingredient_id')->constrained()->onDelete('restrict');
-            $table->foreignId('unit_id')->constrained('units')->onDelete('restrict');
+            $table->foreignId('unit_id')->nullable()->constrained('units')->onDelete('restrict');
             $table->integer('quantity')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();

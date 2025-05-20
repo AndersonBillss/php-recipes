@@ -8,17 +8,17 @@ export interface UserData {
     updated_at: string
 }
 
-export interface IngredientItem {
+export interface IngredientData {
     id: string,
     name: string,
     created_at: string,
     updated_at: string
 }
-export interface Ingredient {
+export interface IngredientItem {
     unit?: UnitData,
     amount?: number,
-    ingredient?: IngredientItem,
-    note: string
+    ingredient?: IngredientData,
+    note?: string
 }
 
 export interface UnitData {
@@ -36,6 +36,7 @@ export interface Step {
 
 export interface recipeData {
     title: string,
-    ingredients: Ingredient[],
+    description: string,
+    ingredients: IngredientItem[],
     steps: Step[]
 }
