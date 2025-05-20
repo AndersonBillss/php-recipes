@@ -5,6 +5,7 @@
       <div class="relative">
         <ComboboxInput
         class="w-full rounded-md border-gray-300 border-3 px-3 py-2 text-sm focus:border-amber-500 outline-none transition-colors duration-200"
+        :placeholder="placeholder"
         @change="query = $event.target.value" />
         <ComboboxOptions class="absolute w-full h-25 overflow-y-scroll bg-gray-200 rounded-b-md z-5">
           <ComboboxOption
