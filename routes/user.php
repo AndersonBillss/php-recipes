@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Ingredient;
 use App\Models\Unit;
+use App\Http\Controllers\RecipeController;
 
 Route::get('/user', fn(Request $request) => $request->user());
 Route::get('/dashboard', function (Request $request) {
@@ -20,3 +21,4 @@ Route::get('/createRecipe', function (Request $request) {
         'user' => $request->user()
     ]);
 });
+Route::post("/recipe", [RecipeController::class, "store"]);
