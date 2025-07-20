@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 
 class UnitController extends Controller
@@ -11,11 +12,16 @@ class UnitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        return Inertia::render('Unit', [
+            'user' => $request->user(),
+            'units' => Unit::all()
+        ]);
         return response()->json([
             'units' => Unit::all()
-        ], 200);    
+
+        ], 200);
     }
 
     /**
@@ -26,7 +32,7 @@ class UnitController extends Controller
         $request->merge([
             'name' => trim(strtolower($request->input('name')))
         ]);
-        
+
         $validated = $request->validate([
             "name" => "required|string|max:255|unique:units",
             "abbreviation" => "required|string|max:255|unique:units"
@@ -37,7 +43,7 @@ class UnitController extends Controller
             'abbreviation' => $validated['abbreviation'],
             'user_id' => $request->user()->id
         ]);
-  
+
         return response(null, 204);
     }
 

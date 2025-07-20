@@ -7,7 +7,7 @@
             <h2 class="mb-4">
                 Ingredient Tool
             </h2>
-            <Link href="/createIngredient">
+            <Link href="/ingredient">
                 <Button class="w-fit text-white">GO</Button>
             </Link>
         </Card>
@@ -15,7 +15,7 @@
             <h2 class="mb-4">
                 Unit Tool
             </h2>
-            <Link href="/createUnit">
+            <Link href="/unit">
                 <Button class="w-fit text-white">GO</Button>
             </Link>
         </Card>

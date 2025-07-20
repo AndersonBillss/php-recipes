@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -10,11 +11,12 @@ class IngredientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json([
-            'units' => Ingredient::all()
-        ], 200);
+        return Inertia::render('Ingredient', [
+            'user' => $request->user(),
+            'ingredients' => Ingredient::all(),
+        ]);
     }
 
     /**
