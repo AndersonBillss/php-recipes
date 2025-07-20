@@ -15,7 +15,6 @@ import { UserData } from '@/types/api';
 import { apiURL } from '@/env.dev'
 import { router } from '@inertiajs/vue3'
 import axios from 'axios'
-import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue';
 
 const props = defineProps<{data: UserData}>()
