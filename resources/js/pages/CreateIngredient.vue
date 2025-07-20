@@ -27,8 +27,9 @@ import Button from '@/components/Button.vue';
 import TextInput from '@/components/TextInput.vue';
 import axios from 'axios';
 import { apiURL } from '@/env.dev';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import BackButton from '@/components/BackButton.vue';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps<{user: UserData, ingredients: IngredientData[]}>()
 const user: UserData = props.user
@@ -37,14 +38,14 @@ const userStore = useUserStore();
 userStore.isLoggedIn = true
 userStore.isAdmin = user.is_admin
 
-const ingredients = ref<IngredientData[]>([...props.ingredients])
+const ingredients = computed(() => props.ingredients)
 const ingredientName = ref("");
 
 function submitIngredient(){
     axios.post(`${apiURL}/ingredient`, {name: ingredientName.value}).then(res => {
         if(`${res.status}`[0] !== '2') return
         ingredientName.value = ""
-        ingredients.value = res.data.ingredients
+        router.reload();
     })
 }
 </script>

@@ -39,12 +39,7 @@ class UnitController extends Controller
             'user_id' => $request->user()->id
         ]);
   
-        $units = Unit::all();
-
-        return response()->json([
-            'message' => 'Succesfully created unit',
-            'units' => $units
-        ], 201);
+        return response(NULL, 204);
     }
 
     /**

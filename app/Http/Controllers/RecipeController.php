@@ -55,9 +55,7 @@ class RecipeController extends Controller
         
         IngredientRecipe::insert($ingredientRecipe);
 
-        return response()->json([
-            'message' => 'Successfully added recipe',
-        ], 201);
+        return response(NULL, 204);
     }
 
     /**

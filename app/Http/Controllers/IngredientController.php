@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class IngredientController extends Controller
 {
@@ -15,7 +14,7 @@ class IngredientController extends Controller
     {
         return response()->json([
             'units' => Ingredient::all()
-        ], 200); 
+        ], 200);
     }
 
     /**
@@ -23,7 +22,6 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->merge([
             'name' => trim(strtolower($request->input('name')))
         ]);
@@ -35,12 +33,7 @@ class IngredientController extends Controller
             'user_id' => $request->user()->id
         ]);
 
-        $ingredients = Ingredient::all();
-
-        return response()->json([
-            'message' => 'Successfully added ingredient',
-            'ingredients' => $ingredients
-        ], 201);
+        return response(null, 204);
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
+use function Pest\Laravel\post;
 
 Route::prefix('api')->group(function () {
     require __DIR__.'/auth.php';
@@ -43,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
     });
 });
+
 Route::middleware('auth:sanctum', 'admin')->group(function () {
     Route::get('/admin', function (Request $request) {        
         return Inertia::render('Admin', ['data' => $request->user()]);
@@ -50,7 +52,8 @@ Route::middleware('auth:sanctum', 'admin')->group(function () {
     Route::get('/createIngredient', function (Request $request) {        
         return Inertia::render('CreateIngredient', [
             'user' => $request->user(),
-            'ingredients' => Ingredient::all()
+            'ingredients' => Ingredient::all(),
+            // 'posts' => Ingredient::latest()->get()
         ]);
     });
     Route::get('/createUnit', function (Request $request) {        
