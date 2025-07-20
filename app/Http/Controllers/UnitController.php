@@ -23,7 +23,6 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->merge([
             'name' => trim(strtolower($request->input('name')))
         ]);
@@ -39,7 +38,7 @@ class UnitController extends Controller
             'user_id' => $request->user()->id
         ]);
   
-        return response(NULL, 204);
+        return response(null, 204);
     }
 
     /**

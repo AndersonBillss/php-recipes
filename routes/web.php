@@ -53,7 +53,6 @@ Route::middleware('auth:sanctum', 'admin')->group(function () {
         return Inertia::render('CreateIngredient', [
             'user' => $request->user(),
             'ingredients' => Ingredient::all(),
-            // 'posts' => Ingredient::latest()->get()
         ]);
     });
     Route::get('/createUnit', function (Request $request) {        

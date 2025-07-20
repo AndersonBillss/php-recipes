@@ -27,8 +27,9 @@ import Button from '@/components/Button.vue';
 import TextInput from '@/components/TextInput.vue';
 import axios from 'axios';
 import { apiURL } from '@/env.dev';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import BackButton from '@/components/BackButton.vue';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps<{user: UserData, units: UnitData[]}>()
 const user: UserData = props.user
@@ -39,7 +40,7 @@ userStore.isAdmin = user.is_admin
 
 let unitName = ref("");
 let unitAbbreviation = ref("");
-const units = ref<UnitData[]>([...props.units])
+const units = computed(() => props.units)
 
 function submitUnit(){
     axios.post(`${apiURL}/unit`, {
@@ -49,7 +50,7 @@ function submitUnit(){
         if(`${res.status}`[0] !== '2') return
         unitName.value = ""
         unitAbbreviation.value = ""
-        units.value = res.data.units
+        router.reload();
     })
 }
 
