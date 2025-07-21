@@ -10,9 +10,11 @@
             <p class="mb-4">
                 Find a new recipe by entering in ingredients.
             </p>
+            <Link href="/recipe">
             <Button class="w-fit text-white">
                 GO
             </Button>
+        </Link>
         </Card>
         <Card class="m-4 p-4">
             <h2>

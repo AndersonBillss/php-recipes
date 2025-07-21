@@ -6,6 +6,7 @@ use App\Models\IngredientRecipe;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class RecipeController extends Controller
 {
@@ -15,6 +16,7 @@ class RecipeController extends Controller
     public function index()
     {
         //
+        return Inertia::render("Recipes");
     }
 
     /**

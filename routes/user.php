@@ -22,3 +22,4 @@ Route::get('/createRecipe', function (Request $request) {
     ]);
 });
 Route::post("/recipe", [RecipeController::class, "store"]);
+Route::get("/recipe", [RecipeController::class, "index"]);
